@@ -103,7 +103,7 @@ export function Test1() {
           </Grid>
           <Box textAlign="center">
             <Button colorPalette="brand" size="lg">
-              Load more
+              Get quote
             </Button>
           </Box>
         </Box>

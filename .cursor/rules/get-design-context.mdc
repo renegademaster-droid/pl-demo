@@ -1,0 +1,16 @@
+---
+description: When user asks for design context, use Figma MCP first
+alwaysApply: true
+---
+
+# Get design context – use Figma MCP first
+
+When the user asks for **design context** (e.g. "get design context", "get design context from Figma", "mitä design-tokenit on"):
+
+1. **First:** Call the **Figma MCP** tool **get_variable_defs** (if available in your tools). Use the current Figma selection (no nodeId) to get variable definitions from the open Figma file. This returns the live design tokens (colors, typography, spacing, effects) from Figma.
+2. **If you have other Figma MCP tools** that return design context (e.g. components, styles, file metadata), call those too when relevant.
+3. **If Figma MCP is not available** (tool not in your list), fall back to reading design context from the codebase: `packages/tokens/figma/tokens.raw.json` (or `node_modules/@gdesignsystem/tokens/figma/tokens.raw.json`), `GDS/packages/theme/src/gds-tokens.ts`, and GDS README/architecture docs.
+
+**Why:** Design context should come from the source of truth (Figma) when possible. The repo’s `tokens.raw.json` is a sync output; Figma MCP returns the current state from the design file.
+
+**GDS token sync:** For "sync figma tokens" see the rule `figma-tokens.mdc` (get_variable_defs → save to .tmp/figma.mcp_latest.json → pnpm gds:tokens:sync:from-mcp).
